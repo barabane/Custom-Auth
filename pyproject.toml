@@ -13,6 +13,7 @@ ruff = "^0.6.9"
 pre-commit = "^4.0.1"
 uvicorn = "^0.31.1"
 sqlalchemy = "^2.0.35"
+alembic = "^1.13.3"
 
 
 [build-system]
