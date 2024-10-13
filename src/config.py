@@ -17,17 +17,20 @@ class Settings(CustomBaseSettings):
     POSTGRES_HOST: str
     POSTGRES_PORT: int
 
-    DATABASE_URL: PostgresDsn | None
+    DATABASE_URL: PostgresDsn | None = None
 
-    def __init__(self):
-        self.DATABASE_URL = PostgresDsn.build(
-            scheme='postgresql+asyncpg',
-            username=self.POSTGRES_USER,
-            password=self.POSTGRES_PASS,
-            host=self.POSTGRES_HOST,
-            port=self.POSTGRES_PORT,
-            path=self.POSTGRES_NAME,
-        )
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+        if not self.DATABASE_URL:
+            self.DATABASE_URL = PostgresDsn.build(
+                scheme='postgresql+asyncpg',
+                username=self.POSTGRES_USER,
+                password=self.POSTGRES_PASS,
+                host=self.POSTGRES_HOST,
+                port=self.POSTGRES_PORT,
+                path=self.POSTGRES_NAME,
+            )
 
 
 settings = Settings()
